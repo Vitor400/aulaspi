@@ -12,10 +12,8 @@
 
 	<div class="container">
 
-
-
-		<h1>lista de eventos</h1>
-
+		<h1>Listar eventos</h1>
+		
 		<table>
 			<thead>
 				<tr>
@@ -26,16 +24,18 @@
 					<th>Horário</th>
 				</tr>
 			</thead>
+			
 			<tbody>
 				<tr th:each="e : ${eventos}">
 					<td th:text="${e.id}">1</td>
-					<td th:text="${e.nome}">joão aniversario</td>
-					<td th:text="${e.local}">um ai </td>
+					<td th:text="${e.nome}">Aniversário jõao</td>
+					<td th:text="${e.local}">Clube</td>
 					<td th:text="${e.data}">19/08</td>
 					<td th:text="${e.horario}">19:00</td>
 				</tr>
 			</tbody>
 		</table>
+
 	</div>
 </body>
 </html>
