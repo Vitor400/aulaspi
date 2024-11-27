@@ -26,22 +26,22 @@
 			
 			<div>
 				<label>Nome:</label> <input type="text" th:field="*{nome}">
-				<p th:erros="*{nome}"></p>
+				<p th:errors="*{nome}"></p>
 			</div>
 
 			<div>
 				<label>Local:</label> <input type="text" th:field="*{local}">
-				<p th:erros="*{local}"></p>
+				<p th:errors="*{local}"></p>
 			</div>
 
 			<div>
-				<label>Data:</label> <input type="text" th:field="*{data}">
-				<p th:erros="*{data}"></p>
+				<label>Data:</label> <input type="date" th:field="*{data}">
+				<p th:errors="*{data}"></p>
 			</div>
 
 			<div>
-				<label>Horario:</label> <input type="text" th:field="*{horario}">
-				<p th:erros="*{horario}"></p>
+				<label>Horario:</label> <input type="time" th:field="*{horario}">
+				<p th:errors="*{horario}"></p>
 			</div>
 
 			<div>
