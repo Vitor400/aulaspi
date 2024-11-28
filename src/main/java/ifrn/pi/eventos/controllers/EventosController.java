@@ -78,22 +78,23 @@ public class EventosController {
 	}
 	
 	@PostMapping("/{idEvento}")
-	public String salvarConvidado(@PathVariable Long idEvento, Convidado convidado) {
-		
-		System.out.println("Id do evento: " + idEvento);
-		System.out.println(convidado);
-		
-		Optional<Evento> opt = er.findById(idEvento);
-		if(opt.isEmpty()) {
-			return"redirect:/eventos";
-		}
-		
-		Evento evento = opt.get();
-		convidado.setEvento(evento);
-		
-		cr.save(convidado);
-		
-		return "redirect:/eventos/{idEvento}";
+	public ModelAndView salvarConvidado(@PathVariable Long idEvento, @Valid Convidado convidado, BindingResult result, RedirectAttributes attributes) {
+	    
+	    if (result.hasErrors()) {
+	        return detalhar(idEvento, convidado);
+	    }
+
+	    Optional<Evento> opt = er.findById(idEvento);
+	    if (opt.isEmpty()) {
+	        return new ModelAndView("redirect:/eventos");
+	    }
+
+	    Evento evento = opt.get();
+	    convidado.setEvento(evento);
+	    cr.save(convidado);
+	    attributes.addFlashAttribute("mensagem", "Convidado salvo com sucesso!");
+
+	    return new ModelAndView("redirect:/eventos/{idEvento}");
 	}
 	
 	@GetMapping("/{id}/remover")
@@ -115,16 +116,17 @@ public class EventosController {
 	}
 	
 	@GetMapping("/{idEvento}/convidados/{idConvidado}/remover")
-	public String apagarEvento(@PathVariable Long idEvento, @PathVariable Long idConvidado) {
-		
-		Optional<Convidado> opt = cr.findById(idConvidado);
-		
-		if(!opt.isEmpty()) {
-			Convidado convidado = opt.get();
-			cr.delete(convidado);
-		}
-		
-		return "redirect:/eventos/{idEvento}";
+	public String apagarEvento(@PathVariable Long idEvento, @PathVariable Long idConvidado, RedirectAttributes attributes) {
+	    
+	    Optional<Convidado> opt = cr.findById(idConvidado);
+	    
+	    if(opt.isPresent()) {
+	        Convidado convidado = opt.get();
+	        cr.delete(convidado);
+	        attributes.addFlashAttribute("mensagem", "Convidado deletado com sucesso!");
+	    }
+	    
+	    return "redirect:/eventos/{idEvento}";
 	}
 	
 	@GetMapping("/{id}/selecionar")

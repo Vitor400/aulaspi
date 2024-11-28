@@ -1,6 +1,5 @@
 package ifrn.pi.eventos.models;
 
-import org.hibernate.annotations.ManyToAny;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
